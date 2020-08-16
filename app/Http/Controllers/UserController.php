@@ -13,6 +13,16 @@ class UserController extends Controller
 
         //CRUD CON IL MODEL (eloquent ORM)
         //create
+
+
+        $data = [//tutti questi dati devono venire dal form
+            'name' => 'Luca',
+            'email' => 'luca@gmail.com',
+            'password' => bcrypt('password')
+        ];
+
+        // User::create($data);
+
         // $user = new User();
         // $user->name = 'marzia';
         // $user->email = 'marziafata@icloud.com';
@@ -26,8 +36,8 @@ class UserController extends Controller
         // User::where('id', 6)->update(['name' => 'pociacchi']);
 
         //Read
-        // $user = User::all();
-        // return $user;
+        $user = User::all();
+        return $user;
 
 
         //CRUD CON RAW QUERY
