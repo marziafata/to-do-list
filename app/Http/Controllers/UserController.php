@@ -9,6 +9,19 @@ use App\User;
 
 class UserController extends Controller
 {
+
+    public function uploadAvatar(Request $request) {
+
+        if ($request->hasFile('image')) {
+
+            $filename = $request->image->getClientOriginalName();
+            $request->image->storeAs('image', $filename, 'public');
+            auth()->user()->update(['avatar' => $filename]);
+        }
+
+        return redirect()->back();
+    }
+
     public function index() {
 
         //CRUD CON IL MODEL (eloquent ORM)

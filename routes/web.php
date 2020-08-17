@@ -1,5 +1,8 @@
 <?php
 
+// use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,9 +34,7 @@ Route::get('/', function () {
 
 Route::get('/user', 'UserController@index');
 
-Route::post('/upload', function() {
-    dd('sdf');
-});
+Route::post('/upload', 'UserController@uploadAvatar');
 
 Auth::routes();
 
