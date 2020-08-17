@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\User;
 
 class UserController extends Controller
@@ -15,11 +16,23 @@ class UserController extends Controller
         if ($request->hasFile('image')) {
 
             $filename = $request->image->getClientOriginalName();
+            //richiamo la funzione che cancella gli avatar precedenti
+            //se l'avatar è già presente, cancellalo
+            $this->deleteOldImage();
+            //carica l'avatar (se è presente lo cancella e carica la nuova foto, se non è presente carica la foto e basta)
             $request->image->storeAs('image', $filename, 'public');
             auth()->user()->update(['avatar' => $filename]);
         }
 
         return redirect()->back();
+    }
+
+    // funzione per sovrascrivere i vecchi avatar
+    // se avatar già presente, cancellalo
+    protected function deleteOldImage() {
+        if (auth()->user()->avatar){
+            Storage::delete('/public/image/' . auth()->user()->avatar);
+        }
     }
 
     public function index() {
