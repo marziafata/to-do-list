@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\User;
+//sblocca per metodo 3
+// use Session;
+// use Redirect;
 
 class UserController extends Controller
 {
@@ -14,7 +17,7 @@ class UserController extends Controller
     public function uploadAvatar(Request $request) {
 
         if ($request->hasFile('image')) {
-
+            //upload avatar
             $filename = $request->image->getClientOriginalName();
             //richiamo la funzione che cancella gli avatar precedenti
             //se l'avatar è già presente, cancellalo
@@ -22,9 +25,28 @@ class UserController extends Controller
             //carica l'avatar (se è presente lo cancella e carica la nuova foto, se non è presente carica la foto e basta)
             $request->image->storeAs('image', $filename, 'public');
             auth()->user()->update(['avatar' => $filename]);
-        }
+            //fine upload avatar
 
-        return redirect()->back();
+            //mostro messaggio di ok se l'immagine è caricata con successo
+            //metodo 1 con bitfumes
+            // $request->session()->flash('message', 'immagine caricata con successo');
+
+            //metodo 2 stackoverflow
+            return redirect()->back()->with('success', 'Hai caricato la tua immagine'); //messaggio ok
+
+            //metodo 3 stackoverflow
+            // Session::flash('message', "Special message goes here");
+            // return Redirect::back();
+        }
+        //metodo 1 con Bitfumes
+        // $request->session()->flash('error', 'immagine non caricata');
+
+        //metodo 2 stackoverflow
+        return redirect()->back()->with('error', 'Qualcosa è andato storto'); // messaggio errore
+
+        //metodo 3 stackoverflow
+        // Session::flash('error', "Special message goes here");
+        // return Redirect::back();
     }
 
     // funzione per sovrascrivere i vecchi avatar
