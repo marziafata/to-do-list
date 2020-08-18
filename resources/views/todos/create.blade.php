@@ -11,11 +11,11 @@
 <body>
     <div class="text-center pt-10">
         <h1 class="text-2x1">La tua prossima cosa da fare</h1>
-        {{-- <x-alert/> --}}
-        <form class="py-5" action="/todos/create" method="post">
+        <x-alert/>
+        <form method="post" action="/todos/create" class="py-5">
             @csrf
-            <input class="p-2 border rounded" type="text" name="title">
-            <input class="p-2 border rounded" type="submit" value="Crea">
+            <input type="text" name="title" class="p-2 border rounded">
+            <input type="submit" value="Crea" class="p-2 border rounded">
         </form>
     </div>
 </body>

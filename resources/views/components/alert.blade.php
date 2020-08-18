@@ -13,13 +13,13 @@
 
 {{-- Metodo 2 stackoverflow --}}
 @if (\Session::has('success'))
-<div class="alert alert-success">
+<div class="py-4 px-2 bg-green-300">
     <ul>
         <li>{!! \Session::get('success') !!}</li>
     </ul>
 </div>
 @elseif (\Session::has('error'))
-<div class="alert alert-danger">
+<div class="py-4 px-2 bg-red-300">
     <ul>
         <li>{!! \Session::get('error') !!}</li>
     </ul>

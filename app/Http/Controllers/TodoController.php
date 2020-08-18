@@ -16,8 +16,12 @@ class TodoController extends Controller
     }
 
     public function store(Request $request) {
+        if(!$request->title) {
+            return redirect()->back()->with('error', 'Inserisci qualcosa da fare');
+        }
+
         Todo::create($request->all());
-        return redirect()->back()->with('message', 'Nuovo impegno inserito correttamente');
+        return redirect()->back()->with('success', 'Nuovo impegno inserito correttamente');
     }
 
     public function edit() {
