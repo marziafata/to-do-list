@@ -23,7 +23,14 @@ class TodoController extends Controller
         return redirect()->back()->with('success', 'Nuovo impegno inserito correttamente');
     }
 
-    public function edit() {
-        return view('todos.edit');
+    public function edit(Todo $todo) {
+
+        return view('todos.edit', compact('todo'));
+    }
+
+    public function update(Request $request, Todo $todo) {
+
+        $todo->update(['title' => $request->title]);
+        return redirect(route('todo.index'))->with('success', 'Hai aggiornato la nota!');
     }
 }

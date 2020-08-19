@@ -7,7 +7,7 @@
     <title>Todos</title>
 </head>
 <body>
-    <div class="text-center pt-10">
+    <div class="w-6/12 m-auto mt-10">
         @yield('content')
     </div>
 </body>
