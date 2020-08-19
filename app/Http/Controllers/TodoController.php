@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBlogPost;
 use Illuminate\Http\Request;
 use App\Todo;
 
@@ -15,10 +16,7 @@ class TodoController extends Controller
         return view('todos.create');
     }
 
-    public function store(Request $request) {
-        if(!$request->title) {
-            return redirect()->back()->with('error', 'Inserisci qualcosa da fare');
-        }
+    public function store(StoreBlogPost $request) {
 
         Todo::create($request->all());
         return redirect()->back()->with('success', 'Nuovo impegno inserito correttamente');

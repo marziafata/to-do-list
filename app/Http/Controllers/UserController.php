@@ -77,7 +77,7 @@ class UserController extends Controller
         // $user->password = bcrypt('password');
         // $user->save();
 
-         //delete
+        //  delete
         // User::where('id', 2)->delete();
 
         //update
@@ -101,7 +101,7 @@ class UserController extends Controller
         // DB::update('update users set name = ? where id = 1',
         // ['fiocchidicotone']);
 
-        //(delete)
+        // (delete)
         // DB::delete('delete from users where id = 1');
 
         //(read)
