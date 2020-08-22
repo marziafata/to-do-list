@@ -37,6 +37,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // relazione tra tabella todos e users
+    public function todos() {
+        return $this->hasMany(Todo::class);
+    }
+
     // //ACCESSOR & MUTATOR
 
     // //funzione per criptare la password in automatico

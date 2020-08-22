@@ -14,8 +14,12 @@ class TodoController extends Controller
     }
 
     public function index() {
-        $todos = Todo::orderBy('completed')->get(); //get prende comunque tutto come all()
+
+        // $todos = auth()->user()->todos()->orderBy('completed')->get(); get prende comunque tutto come all()
         // se volessi le cose completate all'inizio ('completed', 'desc') per cambiare l'ordine
+
+        $todos = auth()->user()->todos->sortBy('completed'); //usiamo la collection
+
         return view('todos.index', compact('todos'));
     }
 
@@ -25,7 +29,9 @@ class TodoController extends Controller
 
     public function store(StoreBlogPost $request) {
 
-        Todo::create($request->all());
+        auth()->user()->todos()->create($request->all());
+
+        // Todo::create($request->all());
         return redirect()->back()->with('success', 'Nuovo impegno inserito correttamente');
     }
 
