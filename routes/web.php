@@ -15,17 +15,38 @@
 */
 
 
+//Middleware
+
+// Route::middleware('auth')->group(function() {
+
+    // Crud raggruppate
+
+    Route::resource('/todo', 'TodoController'); //->middleware('auth')
+
+    //rotte per il check
+
+    Route::delete('/todos/{todo}/incomplete', 'TodoController@incomplete')->name('todo.incomplete');
+
+    Route::put('/todos/{todo}/complete', 'TodoController@complete')->name('todo.complete');
+
+// });
+
 // Tutte le rotte CRUD
 
-Route::get('/todos', 'TodoController@index')->name('todo.index');
+// Route::get('/todos', 'TodoController@index')->name('todo.index');
 
-Route::get('/todos/create', 'TodoController@create');
+// Route::get('/todos/create', 'TodoController@create');
 
-Route::post('/todos/create', 'TodoController@store');
+// Route::post('/todos/create', 'TodoController@store');
 
-Route::get('/todos/{todo}/edit', 'TodoController@edit');
+// Route::get('/todos/{todo}/edit', 'TodoController@edit');
 
-Route::patch('/todos/{todo}/update', 'TodoController@update')->name('todo.update');
+// Route::patch('/todos/{todo}/update', 'TodoController@update')->name('todo.update');
+
+// Route::delete('/todos/{todo}/delete', 'TodoController@delete')->name('todo.delete');
+
+
+
 
 
 // Altre rotte
