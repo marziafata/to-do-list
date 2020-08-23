@@ -25,6 +25,7 @@
             <span class="fas fa-plus-circle text-blue-400 cursor-pointer px-2 py-1"></span>
         </div>
         <div class="py-2">
+
             <input type="text" name="step" class="p-2 border rounded" placeholder="Descrivi step">
         </div>
 
@@ -32,6 +33,8 @@
             <input type="submit" value="Crea" class="p-2 border rounded">
         </div>
     </form>
+
+    @livewire('counter')
 </div>
 @endsection
 
