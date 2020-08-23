@@ -10,7 +10,7 @@
 </div>
 <ul class="my-5">
     <x-alert/>
-    @foreach ($todos as $todo)
+    @forelse ($todos as $todo)
         <li class="flex justify-between p-2 ">
             {{-- complete button --}}
             <div>
@@ -21,7 +21,7 @@
             @if ($todo->completed)
                 <p class="line-through">{{$todo->title}}</p>
             @else
-                <p>{{$todo->title}}</p>
+            <a class="cursor-pointer" href="{{route('todo.show',$todo->id)}}">{{$todo->title}}</a>
             @endif
 
             {{-- edit button --}}
@@ -42,7 +42,13 @@
                 </form>
             </div>
         </li>
-    @endforeach
+    @empty
+
+        <p>Non hai niente da fare:</p>
+        <p>scrivi il tuo primo obbiettivo!</p>
+
+    @endforelse
+
 </ul>
 
 @endsection

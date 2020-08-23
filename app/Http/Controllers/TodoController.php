@@ -9,9 +9,13 @@ use App\Todo;
 class TodoController extends Controller
 {
 
+//*** costruttore middleware che filtra le autenticazioni
+
     public function __construct() {
         $this->middleware('auth'); //->except('index') oppure ->only('index')
     }
+
+//*** funzione index mostra la lista delle risorse
 
     public function index() {
 
@@ -23,22 +27,36 @@ class TodoController extends Controller
         return view('todos.index', compact('todos'));
     }
 
+//*** funzione create mostra il form per creare una nuova risorsa
+
     public function create() {
         return view('todos.create');
     }
+
+//*** funzione store archivia la nuova risorsa creata
 
     public function store(StoreBlogPost $request) {
 
         auth()->user()->todos()->create($request->all());
 
         // Todo::create($request->all());
-        return redirect()->back()->with('success', 'Nuovo impegno inserito correttamente');
+        return redirect(route('todo.index'))->with('success', 'Nuovo impegno inserito correttamente');
     }
+
+    //*** funzione show mostra una risorsa specifica
+
+    public function show(Todo $todo) {
+        return view('todos.show', compact('todo'));
+    }
+
+    //*** funzione edit mostra il form per modificare una risorsa specifica
 
     public function edit(Todo $todo) {
 
         return view('todos.edit', compact('todo'));
     }
+
+    //*** funzione update archivia le modifica a una specifica risorsa
 
     public function update(StoreBlogPost $request, Todo $todo) {
 
@@ -46,6 +64,15 @@ class TodoController extends Controller
         return redirect(route('todo.index'))->with('success', 'Hai aggiornato la nota!');
         //update to do
     }
+
+//*** funzione destroy cancella una specifica risorsa dal database
+
+    public function destroy(Todo $todo) {
+        $todo->delete();
+        return redirect()->back()->with('success', 'Nota cancellata!');
+    }
+
+//*** funzione per mettere e togliere il flag
 
     public function complete(Todo $todo) {
         $todo->update(['completed' => true]);
@@ -57,8 +84,4 @@ class TodoController extends Controller
         return redirect()->back()->with('error', 'Ce la farai domani!');
     }
 
-    public function destroy(Todo $todo) {
-        $todo->delete();
-        return redirect()->back()->with('success', 'Nota cancellata!');
-    }
 }
