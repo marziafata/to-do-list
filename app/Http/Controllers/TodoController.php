@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Todo;
+use App\Step;
 use App\Http\Requests\StoreBlogPost;
 use Illuminate\Http\Request;
-use App\Todo;
+
 
 class TodoController extends Controller
 {
@@ -37,7 +39,13 @@ class TodoController extends Controller
 
     public function store(StoreBlogPost $request) {
 
-        auth()->user()->todos()->create($request->all());
+        $todo = auth()->user()->todos()->create($request->all());
+
+        if ($request->step) {
+            foreach ($request->step as $step) {
+                $todo->steps()->create(['name' => $step]);
+            }
+        }
 
         // Todo::create($request->all());
         return redirect(route('todo.index'))->with('success', 'Nuovo impegno inserito correttamente');
@@ -61,6 +69,20 @@ class TodoController extends Controller
     public function update(StoreBlogPost $request, Todo $todo) {
 
         $todo->update(['title' => $request->title]);
+
+        if ($request->stepName) {
+            foreach ($request->stepName as $key => $value) {
+                $id = $request->stepId[$key];
+                if (!$id) {
+                    $todo->steps()->create(['name' => $value]);
+                } else {
+                    $step = Step::find($id);
+                    $step->update(['name' => $value]);
+                }
+
+            }
+        }
+
         return redirect(route('todo.index'))->with('success', 'Hai aggiornato la nota!');
         //update to do
     }
@@ -68,6 +90,7 @@ class TodoController extends Controller
 //*** funzione destroy cancella una specifica risorsa dal database
 
     public function destroy(Todo $todo) {
+        $todo->steps->each->delete();
         $todo->delete();
         return redirect()->back()->with('success', 'Nota cancellata!');
     }

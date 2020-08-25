@@ -12,7 +12,17 @@
 </div>
 <div>
     <div>
+        <h3 class="text-lg">Descrizione</h3>
         <p>{{$todo->description}}</p>
     </div>
+
+    @if($todo->steps->count() > 0)
+    <div class="py-4">
+        <h3 class="text-lg">Tutti i passaggi</h3>
+        @foreach ($todo->steps as $step)
+        <p>{{$step->name}}</p>
+        @endforeach
+    </div>
+    @endif
 </div>
 @endsection

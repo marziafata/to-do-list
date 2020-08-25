@@ -20,21 +20,14 @@
         </div>
 
         {{-- aggiungi step intermedi --}}
-        <div class="flex justify-center px-2 pb-4">
-            <h2 class="text-lg">Aggiungi uno step intermedio</h2>
-            <span class="fas fa-plus-circle text-blue-400 cursor-pointer px-2 py-1"></span>
-        </div>
         <div class="py-2">
-
-            <input type="text" name="step" class="p-2 border rounded" placeholder="Descrivi step">
+            @livewire('step')
         </div>
 
         <div class="py-1">
             <input type="submit" value="Crea" class="p-2 border rounded">
         </div>
     </form>
-
-    @livewire('counter')
 </div>
 @endsection
 
