@@ -25,7 +25,6 @@ class EditStep extends Component
         if (isset($step['id'])) {
             Step::find($step['id'])->delete();
         }
-
         unset($this->steps[$index]);
     }
 
